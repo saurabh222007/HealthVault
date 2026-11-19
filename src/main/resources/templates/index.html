@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthVault Cloud – Secure Health Records</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4" href="/">
+            <i class="bi bi-heart-pulse-fill me-2"></i>HealthVault Cloud
+        </a>
+        <div class="ms-auto">
+            <a href="/login" class="btn btn-outline-light me-2">Login</a>
+            <a href="/register" class="btn btn-light text-primary fw-bold">Register</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero-section d-flex align-items-center min-vh-100">
+    <div class="container text-center text-white">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <i class="bi bi-shield-lock-fill display-1 mb-4" style="color: #a8d8ea;"></i>
+                <h1 class="display-4 fw-bold mb-4">Your Health Records,<br>Secured in the Cloud</h1>
+                <p class="lead mb-5 opacity-75">
+                    HealthVault Cloud is a secure, role-based platform for patients and doctors
+                    to store, manage and share medical records — powered by Java Spring Boot
+                    and deployed on cloud infrastructure.
+                </p>
+                <a href="/register" class="btn btn-light btn-lg text-primary fw-bold px-5 me-3">
+                    <i class="bi bi-person-plus-fill me-2"></i>Get Started Free
+                </a>
+                <a href="/login" class="btn btn-outline-light btn-lg px-5">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FEATURES SECTION ===== -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Why HealthVault Cloud?</h2>
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-cloud-upload-fill text-primary display-5 mb-3"></i>
+                    <h5 class="fw-bold">Cloud Storage</h5>
+                    <p class="text-muted">Upload lab reports, prescriptions, X-rays, and scans securely to cloud storage. Access from anywhere.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-person-badge-fill text-success display-5 mb-3"></i>
+                    <h5 class="fw-bold">Role-Based Access</h5>
+                    <p class="text-muted">Separate dashboards for Patients and Doctors. Each user sees only what they're authorized to view.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-shield-check-fill text-danger display-5 mb-3"></i>
+                    <h5 class="fw-bold">Secure & Private</h5>
+                    <p class="text-muted">BCrypt password hashing, Spring Security authentication, and encrypted cloud storage for all files.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-file-medical-fill text-info display-5 mb-3"></i>
+                    <h5 class="fw-bold">Record Categories</h5>
+                    <p class="text-muted">Organize records by type: Lab Reports, Prescriptions, X-Rays, Scans, Vaccinations and more.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-database-fill text-warning display-5 mb-3"></i>
+                    <h5 class="fw-bold">Cloud Database</h5>
+                    <p class="text-muted">All patient data stored in a managed cloud PostgreSQL database — no local storage needed.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-phone-fill text-secondary display-5 mb-3"></i>
+                    <h5 class="fw-bold">Responsive UI</h5>
+                    <p class="text-muted">Works seamlessly on desktop, tablet, and mobile. Built with Bootstrap 5 for a modern look.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===== TECH STACK ===== -->
+<section class="py-5 bg-dark text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Built With</h2>
+        <div class="row g-3 justify-content-center">
+            <div class="col-auto"><span class="badge bg-primary fs-6 px-4 py-2">☕ Java 17</span></div>
+            <div class="col-auto"><span class="badge bg-success fs-6 px-4 py-2">🍃 Spring Boot 3</span></div>
+            <div class="col-auto"><span class="badge bg-info text-dark fs-6 px-4 py-2">🗄️ PostgreSQL</span></div>
+            <div class="col-auto"><span class="badge bg-warning text-dark fs-6 px-4 py-2">☁️ Supabase Cloud</span></div>
+            <div class="col-auto"><span class="badge bg-danger fs-6 px-4 py-2">🔐 Spring Security</span></div>
+            <div class="col-auto"><span class="badge bg-secondary fs-6 px-4 py-2">🚀 Render Deploy</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-dark text-white text-center py-3">
+    <small>&copy; 2024 HealthVault Cloud. Integrated Java & Cloud Computing Project.</small>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
