@@ -2,109 +2,106 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Upload Record – HealthVault</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Medical Record | HealthVault Cloud</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="bg-light">
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-dark bg-primary shadow">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm sticky-top">
     <div class="container-fluid px-4">
-        <a class="navbar-brand fw-bold" href="/"><i class="bi bi-heart-pulse-fill me-2"></i>HealthVault Cloud</a>
-        <div class="ms-auto d-flex gap-3 align-items-center">
-            <span class="text-white opacity-75 small" th:text="${patient.user.fullName}"></span>
-            <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="/patient/dashboard">
+            <span class="navbar-brand-icon"><i class="bi bi-shield-plus"></i></span>
+            <span>HealthVault <span class="badge bg-primary-subtle text-primary ms-1 small">Patient Portal</span></span>
+        </a>
+        <div class="ms-auto d-flex align-items-center gap-3">
+            <span class="text-white small fw-semibold" th:text="${patient.user.fullName}"></span>
+            <a href="/logout" class="btn btn-outline-light btn-sm px-3">Sign Out</a>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
     <div class="row">
-
-        <!-- SIDEBAR -->
-        <nav class="col-md-2 d-none d-md-block bg-white shadow-sm min-vh-100 py-4 px-3">
+        <nav class="col-md-3 col-lg-2 d-none d-md-block app-sidebar py-4 px-3">
+            <div class="text-uppercase text-muted fw-bold mb-2 ps-2" style="font-size: 0.72rem;">Vault Controls</div>
             <ul class="nav flex-column">
-                <li class="nav-item mb-1"><a class="nav-link rounded" href="/patient/dashboard"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
-                <li class="nav-item mb-1"><a class="nav-link rounded" href="/patient/records"><i class="bi bi-file-medical me-2"></i>My Records</a></li>
-                <li class="nav-item mb-1"><a class="nav-link active rounded" href="/patient/upload"><i class="bi bi-cloud-upload me-2"></i>Upload Record</a></li>
-                <li class="nav-item mb-1"><a class="nav-link rounded" href="/patient/profile"><i class="bi bi-person-gear me-2"></i>My Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="/patient/dashboard"><i class="bi bi-grid-1x2"></i> Overview</a></li>
+                <li class="nav-item"><a class="nav-link" href="/patient/records"><i class="bi bi-folder2-open"></i> Medical Archive</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/patient/upload"><i class="bi bi-cloud-arrow-up"></i> Upload Document</a></li>
+                <li class="nav-item"><a class="nav-link" href="/patient/profile"><i class="bi bi-person-lines-fill"></i> Health Profile</a></li>
             </ul>
         </nav>
 
-        <!-- MAIN -->
-        <main class="col-md-10 px-4 py-4">
-            <h3 class="fw-bold mb-4"><i class="bi bi-cloud-upload-fill text-primary me-2"></i>Upload Medical Record</h3>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <div class="mb-4">
+                <h3 class="fw-bold mb-1">Dispatch Document to Cloud Vault</h3>
+                <p class="text-muted small mb-0">Files are uploaded via Multipart streaming to Supabase S3 Object Storage.</p>
+            </div>
 
             <!-- Alerts -->
-            <div th:if="${errorMsg}" class="alert alert-danger" th:text="${errorMsg}"></div>
+            <div th:if="${errorMsg}" class="alert alert-danger small" th:text="${errorMsg}"></div>
 
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-4">
-                    <form th:action="@{/patient/upload}" method="post" enctype="multipart/form-data">
+            <div class="surface-card p-4 p-md-5">
+                <form th:action="@{/patient/upload}" method="post" enctype="multipart/form-data">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold text-muted">Clinical Record Title <span class="text-danger">*</span></label>
+                            <input type="text" name="title" class="form-control"
+                                   placeholder="e.g. Complete Blood Count (CBC) Laboratory Panel" required>
+                        </div>
 
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-semibold">Record Title <span class="text-danger">*</span></label>
-                                <input type="text" name="title" class="form-control"
-                                       placeholder="e.g. Blood Test Report - Nov 2024" required>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold text-muted">Document Classification <span class="text-danger">*</span></label>
+                            <select name="recordType" class="form-select" required>
+                                <option value="">Select standard classification...</option>
+                                <option th:each="type : ${recordTypes}"
+                                        th:value="${type.name()}"
+                                        th:text="${type.name().replace('_', ' ')}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label small fw-semibold text-muted">Clinical Description / Summary Notes</label>
+                            <textarea name="description" class="form-control" rows="3"
+                                      placeholder="Add clinical observations, physician annotations, or medication details..."></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label small fw-semibold text-muted">Attachment File (PDF, Imaging, Scans) <span class="text-danger">*</span></label>
+                            <div class="upload-dropzone">
+                                <i class="bi bi-cloud-arrow-up text-primary fs-1 d-block mb-2"></i>
+                                <h6 class="fw-bold text-dark mb-1">Choose a medical file to upload</h6>
+                                <p class="text-muted small mb-3">Accepts PDF, JPG, PNG, DICOM (Maximum 10 MB per payload)</p>
+                                <input type="file" name="file" class="form-control mx-auto" id="fileInput"
+                                       style="max-width: 420px;"
+                                       accept=".pdf,.jpg,.jpeg,.png,.dcm,.doc,.docx" required>
                             </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label fw-semibold">Record Type <span class="text-danger">*</span></label>
-                                <select name="recordType" class="form-select" required>
-                                    <option value="">-- Select Type --</option>
-                                    <option th:each="type : ${recordTypes}"
-                                            th:value="${type.name()}"
-                                            th:text="${type.name().replace('_', ' ')}"></option>
-                                </select>
-                            </div>
-
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Description</label>
-                                <textarea name="description" class="form-control" rows="3"
-                                          placeholder="Brief description of this record..."></textarea>
-                            </div>
-
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Upload File <span class="text-danger">*</span></label>
-                                <div class="upload-area border-2 border-dashed rounded p-5 text-center bg-light"
-                                     id="uploadArea">
-                                    <i class="bi bi-cloud-arrow-up-fill display-4 text-primary mb-3"></i>
-                                    <p class="mb-2 fw-semibold">Drag & drop or click to upload</p>
-                                    <p class="text-muted small mb-3">PDF, JPG, PNG, DICOM supported (max 10MB)</p>
-                                    <input type="file" name="file" class="form-control" id="fileInput"
-                                           accept=".pdf,.jpg,.jpeg,.png,.dcm,.doc,.docx" required>
+                            <div id="filePreview" class="mt-2 d-none">
+                                <div class="alert alert-info py-2 px-3 small d-flex align-items-center mb-0">
+                                    <i class="bi bi-file-earmark-check text-primary fs-5 me-2"></i>
+                                    <span id="fileName"></span>
                                 </div>
-                                <div id="filePreview" class="mt-2 d-none">
-                                    <div class="alert alert-info d-flex align-items-center">
-                                        <i class="bi bi-file-earmark-check-fill me-2"></i>
-                                        <span id="fileName"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="alert alert-info d-flex align-items-start">
-                                    <i class="bi bi-info-circle-fill me-2 mt-1"></i>
-                                    <div>
-                                        <strong>Cloud Storage:</strong> Your file will be securely uploaded to
-                                        Supabase Cloud Storage. The file URL is saved in our cloud database
-                                        and only accessible by you and your authorized doctors.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 d-flex gap-3">
-                                <button type="submit" class="btn btn-primary px-5 fw-bold">
-                                    <i class="bi bi-cloud-upload-fill me-2"></i>Upload to Cloud
-                                </button>
-                                <a href="/patient/records" class="btn btn-outline-secondary px-4">Cancel</a>
                             </div>
                         </div>
-                    </form>
-                </div>
+
+                        <div class="col-12">
+                            <div class="p-3 bg-light rounded border small text-muted">
+                                <div class="fw-semibold text-dark mb-1"><i class="bi bi-shield-check text-success me-1"></i> Cloud Pipeline Security Note</div>
+                                Unstructured binary data is dispatched over TLS 1.3 to Supabase Object Storage. The immutable public URI is registered in PostgreSQL with patient-level foreign key constraints.
+                            </div>
+                        </div>
+
+                        <div class="col-12 d-flex gap-3 pt-2">
+                            <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold">
+                                <i class="bi bi-cloud-arrow-up-fill me-1"></i> Stream to Cloud Storage
+                            </button>
+                            <a href="/patient/records" class="btn btn-outline-secondary px-4 py-2">Return to Archive</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </main>
     </div>

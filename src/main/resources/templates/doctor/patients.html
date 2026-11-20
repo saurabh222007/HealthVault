@@ -2,76 +2,85 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All Patients – HealthVault</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Directory | HealthVault Cloud</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-success shadow">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background: #0f766e;">
     <div class="container-fluid px-4">
-        <a class="navbar-brand fw-bold" href="/"><i class="bi bi-heart-pulse-fill me-2"></i>HealthVault Cloud</a>
-        <div class="ms-auto d-flex gap-3 align-items-center">
-            <span class="text-white opacity-75 small" th:text="${doctor.user.fullName}"></span>
-            <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="/doctor/dashboard">
+            <span class="navbar-brand-icon" style="background: #115e59;"><i class="bi bi-hospital"></i></span>
+            <span>HealthVault <span class="badge bg-white text-dark ms-1 small">Clinician Portal</span></span>
+        </a>
+        <div class="ms-auto d-flex align-items-center gap-3">
+            <span class="text-white small fw-semibold" th:text="${doctor.user.fullName}"></span>
+            <a href="/logout" class="btn btn-outline-light btn-sm px-3">Sign Out</a>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-white shadow-sm min-vh-100 py-4 px-3">
+        <nav class="col-md-3 col-lg-2 d-none d-md-block app-sidebar app-sidebar-doctor py-4 px-3">
+            <div class="text-uppercase text-muted fw-bold mb-2 ps-2" style="font-size: 0.72rem;">Clinical Controls</div>
             <ul class="nav flex-column">
-                <li class="nav-item mb-1"><a class="nav-link rounded" href="/doctor/dashboard"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
-                <li class="nav-item mb-1"><a class="nav-link active rounded" href="/doctor/patients"><i class="bi bi-people me-2"></i>All Patients</a></li>
-                <li class="nav-item mb-1"><a class="nav-link rounded" href="/doctor/profile"><i class="bi bi-person-badge me-2"></i>My Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="/doctor/dashboard"><i class="bi bi-speedometer2"></i> Clinical Overview</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/doctor/patients"><i class="bi bi-people-fill"></i> Patient Directory</a></li>
+                <li class="nav-item"><a class="nav-link" href="/doctor/profile"><i class="bi bi-person-badge"></i> Practitioner Profile</a></li>
             </ul>
         </nav>
 
-        <main class="col-md-10 px-4 py-4">
-            <h3 class="fw-bold mb-4"><i class="bi bi-people-fill text-success me-2"></i>All Registered Patients</h3>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <div class="mb-4">
+                <h3 class="fw-bold mb-1">Centralized Patient Directory</h3>
+                <p class="text-muted small mb-0">Electronic Health Record (EHR) registry of all verified patients in system.</p>
+            </div>
 
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-0">
-                    <div th:if="${patients.empty}" class="text-center py-5 text-muted">
-                        <i class="bi bi-people display-4 d-block mb-3"></i>
-                        <p>No patients registered yet.</p>
-                    </div>
-                    <div th:if="${!patients.empty}" class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-success">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Blood Group</th>
-                                    <th>Phone</th>
-                                    <th>Conditions</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="p, stat : ${patients}">
-                                    <td th:text="${stat.index + 1}"></td>
-                                    <td class="fw-semibold">
-                                        <i class="bi bi-person-circle text-secondary me-1"></i>
-                                        <span th:text="${p.user.fullName}"></span>
-                                    </td>
-                                    <td class="text-muted small" th:text="${p.user.email}"></td>
-                                    <td><span class="badge bg-danger" th:text="${p.bloodGroup != null ? p.bloodGroup : '—'}"></span></td>
-                                    <td th:text="${p.phone != null ? p.phone : '—'}"></td>
-                                    <td class="small" th:text="${p.existingConditions != null ? p.existingConditions : '—'}"></td>
-                                    <td>
-                                        <a th:href="@{'/doctor/patient/' + ${p.id}}"
-                                           class="btn btn-sm btn-success">
-                                            <i class="bi bi-folder2-open me-1"></i>View Records
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="surface-card">
+                <div class="table-responsive">
+                    <table class="table custom-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Patient Full Name</th>
+                                <th>Email / Identity</th>
+                                <th>Blood Group</th>
+                                <th>Contact Phone</th>
+                                <th>Pre-Existing Conditions</th>
+                                <th class="text-end">Record Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${patients.empty}">
+                                <td colspan="7" class="text-center py-5 text-muted">
+                                    <i class="bi bi-people fs-2 d-block mb-2"></i>
+                                    No patients registered in database.
+                                </td>
+                            </tr>
+                            <tr th:each="p, stat : ${patients}">
+                                <td class="text-muted small" th:text="${stat.index + 1}">1</td>
+                                <td class="fw-semibold text-dark">
+                                    <i class="bi bi-person-circle text-muted me-1"></i>
+                                    <span th:text="${p.user.fullName}">Patient Name</span>
+                                </td>
+                                <td class="text-muted small" th:text="${p.user.email}">email@domain.com</td>
+                                <td>
+                                    <span class="badge badge-soft-danger" th:text="${p.bloodGroup != null && !p.bloodGroup.empty ? p.bloodGroup : 'Unspecified'}">O+</span>
+                                </td>
+                                <td class="text-muted small" th:text="${p.phone != null && !p.phone.empty ? p.phone : '--'}">Phone</td>
+                                <td class="text-muted small" th:text="${p.existingConditions != null && !p.existingConditions.empty ? p.existingConditions : 'None recorded'}">Conditions</td>
+                                <td class="text-end">
+                                    <a th:href="@{'/doctor/patient/' + ${p.id}}" class="btn btn-sm btn-outline-primary px-3">
+                                        <i class="bi bi-file-earmark-medical me-1"></i> Open Records
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>

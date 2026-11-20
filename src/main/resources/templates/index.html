@@ -3,125 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealthVault Cloud – Secure Health Records</title>
+    <title>HealthVault Cloud | Electronic Health Records & Cloud Repository</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand fw-bold fs-4" href="/">
-            <i class="bi bi-heart-pulse-fill me-2"></i>HealthVault Cloud
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="/">
+            <span class="navbar-brand-icon"><i class="bi bi-shield-plus"></i></span>
+            <span>HealthVault <span class="text-info fw-normal">Cloud</span></span>
         </a>
-        <div class="ms-auto">
-            <a href="/login" class="btn btn-outline-light me-2">Login</a>
-            <a href="/register" class="btn btn-light text-primary fw-bold">Register</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navContent">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+                <li class="nav-item">
+                    <a class="nav-link text-white-50 px-3" href="#features">Architecture</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white-50 px-3" href="#tech-specs">Technology</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white-50 px-3" href="#security">Security</a>
+                </li>
+                <li class="nav-item ms-lg-2">
+                    <a href="/login" class="btn btn-outline-light btn-sm px-3 py-2 fw-semibold">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/register" class="btn btn-primary btn-sm px-3 py-2 fw-semibold">
+                        <i class="bi bi-person-check me-1"></i> Register Account
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
-<!-- ===== HERO SECTION ===== -->
-<section class="hero-section d-flex align-items-center min-vh-100">
-    <div class="container text-center text-white">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <i class="bi bi-shield-lock-fill display-1 mb-4" style="color: #a8d8ea;"></i>
-                <h1 class="display-4 fw-bold mb-4">Your Health Records,<br>Secured in the Cloud</h1>
-                <p class="lead mb-5 opacity-75">
-                    HealthVault Cloud is a secure, role-based platform for patients and doctors
-                    to store, manage and share medical records — powered by Java Spring Boot
-                    and deployed on cloud infrastructure.
+<!-- Hero Section -->
+<header class="hero-wrapper text-white">
+    <div class="container position-relative">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-9">
+                <div class="hero-pill">
+                    <i class="bi bi-clouds-fill"></i>
+                    <span>Cloud Computing & Java Enterprise Integration</span>
+                </div>
+                <h1 class="hero-title mb-4">
+                    Secure Patient Health Records,<br>
+                    <span>Engineered for Cloud Scale</span>
+                </h1>
+                <p class="lead text-white-50 mb-5 mx-auto" style="max-width: 740px;">
+                    HealthVault Cloud provides centralized, encrypted storage for diagnostic reports, prescriptions,
+                    and clinical imaging. Built on Spring Boot 3, PostgreSQL, and Cloud Object Storage to enforce
+                    strict role-based medical data governance.
                 </p>
-                <a href="/register" class="btn btn-light btn-lg text-primary fw-bold px-5 me-3">
-                    <i class="bi bi-person-plus-fill me-2"></i>Get Started Free
-                </a>
-                <a href="/login" class="btn btn-outline-light btn-lg px-5">
-                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
-                </a>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="/register" class="btn btn-primary btn-lg px-4 py-3 fw-bold shadow-sm">
+                        <i class="bi bi-plus-circle me-2"></i> Create User Account
+                    </a>
+                    <a href="/login" class="btn btn-outline-light btn-lg px-4 py-3 fw-semibold">
+                        <i class="bi bi-shield-lock me-2"></i> Clinical & Patient Portal
+                    </a>
+                </div>
+
+                <!-- Live Status Metrics -->
+                <div class="row g-3 justify-content-center mt-5 pt-4 border-top border-white border-opacity-10 text-start">
+                    <div class="col-md-3 col-6">
+                        <div class="small text-white-50">Cloud Runtime</div>
+                        <div class="fw-bold text-white fs-6">Render Container / Java 17</div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="small text-white-50">Primary Database</div>
+                        <div class="fw-bold text-white fs-6">PostgreSQL 15 (Supabase)</div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="small text-white-50">Object Repository</div>
+                        <div class="fw-bold text-white fs-6">S3-Compatible Cloud Storage</div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="small text-white-50">Access Governance</div>
+                        <div class="fw-bold text-white fs-6">Spring Security & RBAC</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</section>
+</header>
 
-<!-- ===== FEATURES SECTION ===== -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center fw-bold mb-5">Why HealthVault Cloud?</h2>
+<!-- System Features Grid -->
+<section id="features" class="py-5 bg-white">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <span class="badge bg-light text-primary border px-3 py-2 text-uppercase fw-semibold mb-2">Core System Capabilities</span>
+            <h2 class="fw-bold text-dark">Enterprise Medical Records Architecture</h2>
+            <p class="text-muted mx-auto" style="max-width: 620px;">
+                Designed to solve fragmented patient histories through cloud-native synchronization and secure file dispatching.
+            </p>
+        </div>
+
         <div class="row g-4">
-
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4">
-                    <i class="bi bi-cloud-upload-fill text-primary display-5 mb-3"></i>
-                    <h5 class="fw-bold">Cloud Storage</h5>
-                    <p class="text-muted">Upload lab reports, prescriptions, X-rays, and scans securely to cloud storage. Access from anywhere.</p>
+                <div class="surface-card p-4 h-100">
+                    <div class="feature-icon-box feature-icon-blue">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Cloud Object Storage</h5>
+                    <p class="text-muted small mb-0">
+                        Diagnostic PDFs, radiology imaging, and laboratory results are streamed directly to Supabase cloud storage buckets with cryptographic integrity.
+                    </p>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4">
-                    <i class="bi bi-person-badge-fill text-success display-5 mb-3"></i>
-                    <h5 class="fw-bold">Role-Based Access</h5>
-                    <p class="text-muted">Separate dashboards for Patients and Doctors. Each user sees only what they're authorized to view.</p>
+                <div class="surface-card p-4 h-100">
+                    <div class="feature-icon-box feature-icon-teal">
+                        <i class="bi bi-person-bounding-box"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Strict Role Separation</h5>
+                    <p class="text-muted small mb-0">
+                        Granular authorization pipelines isolate patient personal vaults from practitioner clinical reviews, governed by Spring Security session controls.
+                    </p>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4">
-                    <i class="bi bi-shield-check-fill text-danger display-5 mb-3"></i>
-                    <h5 class="fw-bold">Secure & Private</h5>
-                    <p class="text-muted">BCrypt password hashing, Spring Security authentication, and encrypted cloud storage for all files.</p>
+                <div class="surface-card p-4 h-100">
+                    <div class="feature-icon-box feature-icon-indigo">
+                        <i class="bi bi-database-check"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Managed Relational Database</h5>
+                    <p class="text-muted small mb-0">
+                        All patient profiles, clinical metadata, and diagnostic records are normalized in Supabase PostgreSQL with ACID transaction guarantees.
+                    </p>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4">
-                    <i class="bi bi-file-medical-fill text-info display-5 mb-3"></i>
-                    <h5 class="fw-bold">Record Categories</h5>
-                    <p class="text-muted">Organize records by type: Lab Reports, Prescriptions, X-Rays, Scans, Vaccinations and more.</p>
+                <div class="surface-card p-4 h-100">
+                    <div class="feature-icon-box feature-icon-purple">
+                        <i class="bi bi-folder-check"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Standardized Categorization</h5>
+                    <p class="text-muted small mb-0">
+                        Typed classification for Lab Reports, Prescriptions, X-Rays, Diagnostic Scans, and Discharge Summaries with instant search and filtering.
+                    </p>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4">
-                    <i class="bi bi-database-fill text-warning display-5 mb-3"></i>
-                    <h5 class="fw-bold">Cloud Database</h5>
-                    <p class="text-muted">All patient data stored in a managed cloud PostgreSQL database — no local storage needed.</p>
+                <div class="surface-card p-4 h-100">
+                    <div class="feature-icon-box feature-icon-emerald">
+                        <i class="bi bi-file-earmark-medical"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Clinician Case Sheet View</h5>
+                    <p class="text-muted small mb-0">
+                        Registered medical practitioners can browse patient rosters, inspect clinical histories, and securely view uploaded patient medical files.
+                    </p>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4">
-                    <i class="bi bi-phone-fill text-secondary display-5 mb-3"></i>
-                    <h5 class="fw-bold">Responsive UI</h5>
-                    <p class="text-muted">Works seamlessly on desktop, tablet, and mobile. Built with Bootstrap 5 for a modern look.</p>
+                <div class="surface-card p-4 h-100">
+                    <div class="feature-icon-box feature-icon-amber">
+                        <i class="bi bi-key"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Cryptographic Credentials</h5>
+                    <p class="text-muted small mb-0">
+                        Passwords hashed via BCrypt with 12 salt rounds. Secure authenticated session tokens protect against unauthorized URL tampering.
+                    </p>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
-<!-- ===== TECH STACK ===== -->
-<section class="py-5 bg-dark text-white">
-    <div class="container text-center">
-        <h2 class="fw-bold mb-4">Built With</h2>
-        <div class="row g-3 justify-content-center">
-            <div class="col-auto"><span class="badge bg-primary fs-6 px-4 py-2">☕ Java 17</span></div>
-            <div class="col-auto"><span class="badge bg-success fs-6 px-4 py-2">🍃 Spring Boot 3</span></div>
-            <div class="col-auto"><span class="badge bg-info text-dark fs-6 px-4 py-2">🗄️ PostgreSQL</span></div>
-            <div class="col-auto"><span class="badge bg-warning text-dark fs-6 px-4 py-2">☁️ Supabase Cloud</span></div>
-            <div class="col-auto"><span class="badge bg-danger fs-6 px-4 py-2">🔐 Spring Security</span></div>
-            <div class="col-auto"><span class="badge bg-secondary fs-6 px-4 py-2">🚀 Render Deploy</span></div>
+<!-- Technology Architecture Section -->
+<section id="tech-specs" class="py-5 bg-light border-top border-bottom">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge bg-primary-subtle text-primary border px-3 py-2 text-uppercase fw-semibold mb-2">Cloud Engineering Stack</span>
+                <h2 class="fw-bold text-dark mb-4">Integrated Java & Cloud Service Topology</h2>
+                <p class="text-muted">
+                    This project satisfies academic and enterprise specifications by decoupling compute, data persistence, and unstructured file storage across dedicated cloud layers:
+                </p>
+                <div class="d-flex flex-column gap-3 mt-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="p-2 bg-white rounded border text-primary"><i class="bi bi-cpu-fill fs-5"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Compute Layer (Render Cloud)</h6>
+                            <p class="text-muted small mb-0">Containerized Spring Boot 3 web service executing in an isolated Linux container with automated health scanning.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="p-2 bg-white rounded border text-success"><i class="bi bi-database-fill-gear fs-5"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Persistence Layer (Supabase PostgreSQL)</h6>
+                            <p class="text-muted small mb-0">Hosted in Asia-Pacific with PgBouncer connection pooling on port 5432, managing relational entity graphs.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="p-2 bg-white rounded border text-info"><i class="bi bi-hdd-network-fill fs-5"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Storage Layer (Supabase Cloud Storage)</h6>
+                            <p class="text-muted small mb-0">Dedicated S3-compliant bucket <code>medical-records</code> with secure multipart streaming via REST endpoints.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="surface-card p-4">
+                    <h6 class="fw-bold text-uppercase text-muted small mb-3">Service Architecture Breakdown</h6>
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="bi bi-check2-circle text-primary me-2"></i>Backend Framework</span>
+                            <span class="badge bg-light text-dark border">Spring Boot 3.2.5 (Java 17)</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="bi bi-check2-circle text-primary me-2"></i>ORM & Data Access</span>
+                            <span class="badge bg-light text-dark border">Hibernate 6 / Spring Data JPA</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="bi bi-check2-circle text-primary me-2"></i>Template Rendering</span>
+                            <span class="badge bg-light text-dark border">Thymeleaf + Bootstrap 5.3</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="bi bi-check2-circle text-primary me-2"></i>Cloud Hosting Provider</span>
+                            <span class="badge bg-light text-dark border">Render Web Services</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="bi bi-check2-circle text-primary me-2"></i>Cloud Database Host</span>
+                            <span class="badge bg-light text-dark border">Supabase Pooler (ap-northeast-1)</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="bi bi-check2-circle text-primary me-2"></i>Container Packaging</span>
+                            <span class="badge bg-light text-dark border">Multi-Stage Dockerfile</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
-<footer class="bg-dark text-white text-center py-3">
-    <small>&copy; 2024 HealthVault Cloud. Integrated Java & Cloud Computing Project.</small>
+<!-- Footer -->
+<footer class="site-footer pt-5 pb-4">
+    <div class="container">
+        <div class="row g-4 mb-4">
+            <div class="col-lg-5">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span class="navbar-brand-icon"><i class="bi bi-shield-plus"></i></span>
+                    <h5 class="text-white mb-0 fw-bold">HealthVault Cloud</h5>
+                </div>
+                <p class="text-white-50 small pe-lg-4">
+                    Integrated Academic Engineering Project demonstrating full-stack Java Programming and Cloud Computing architectural principles.
+                </p>
+                <div class="d-flex align-items-center text-white-50 small mt-3">
+                    <span class="status-indicator-live"></span>
+                    <span>Cloud Services Status: All Systems Operational</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <h6>Academic Project Scope</h6>
+                <ul class="list-unstyled small d-flex flex-column gap-2">
+                    <li><span class="text-white-50">Course:</span> Java & Cloud Computing</li>
+                    <li><span class="text-white-50">Semester:</span> Semester 5</li>
+                    <li><span class="text-white-50">Repository:</span> <a href="https://github.com/saurabh222007/HealthVault" target="_blank">github.com/saurabh222007/HealthVault</a></li>
+                    <li><span class="text-white-50">Target Deployment:</span> Render Cloud</li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-6">
+                <h6>Security & Compliance Notes</h6>
+                <p class="text-white-50 small">
+                    Engineered with TLS in-transit encryption, BCrypt password hashing, parameter validation, and secure cloud storage bucket access controls.
+                </p>
+                <div class="mt-2">
+                    <a href="/login" class="btn btn-outline-light btn-sm me-2">Portal Login</a>
+                    <a href="/register" class="btn btn-primary btn-sm">Register</a>
+                </div>
+            </div>
+        </div>
+        <div class="border-top border-white border-opacity-10 pt-3 text-center small text-white-50">
+            &copy; 2026 HealthVault Cloud. Developed and Deployed by Saurabh (saurabh222007). All rights reserved.
+        </div>
+    </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -2,96 +2,105 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register – HealthVault Cloud</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Account | HealthVault Cloud</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body class="auth-bg d-flex align-items-center min-vh-100 py-5">
+<body class="bg-light d-flex align-items-center min-vh-100 py-5">
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-7 col-lg-6">
 
-            <!-- Brand -->
+            <!-- Brand Header -->
             <div class="text-center mb-4">
                 <a href="/" class="text-decoration-none">
-                    <i class="bi bi-heart-pulse-fill text-primary display-4"></i>
-                    <h2 class="fw-bold text-dark mt-2">Create Your Account</h2>
+                    <span class="navbar-brand-icon mb-2"><i class="bi bi-shield-plus"></i></span>
+                    <h3 class="fw-bold text-dark mt-2 mb-1">Create HealthVault Account</h3>
                 </a>
-                <p class="text-muted">Join HealthVault Cloud today</p>
+                <p class="text-muted small">Select your portal access level and establish credentials</p>
             </div>
 
             <!-- Alerts -->
-            <div th:if="${errorMsg}" class="alert alert-danger" th:text="${errorMsg}"></div>
+            <div th:if="${errorMsg}" class="alert alert-danger small" th:text="${errorMsg}"></div>
 
-            <!-- Register Card -->
-            <div class="card shadow-lg border-0">
-                <div class="card-body p-4">
-                    <form th:action="@{/register}" th:object="${registerRequest}" method="post">
+            <!-- Card -->
+            <div class="surface-card p-4 p-md-5">
+                <form th:action="@{/register}" th:object="${registerRequest}" method="post">
 
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Full Name</label>
-                            <input type="text" th:field="*{fullName}" class="form-control"
-                                   th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'"
-                                   placeholder="Dr. / Mr. / Ms. Full Name">
-                            <div class="invalid-feedback" th:errors="*{fullName}"></div>
+                    <!-- Role Selection Cards -->
+                    <label class="form-label small fw-semibold text-muted d-block mb-2">Account Type / Portal Access</label>
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <input class="d-none role-select-input" type="radio"
+                                   th:field="*{role}" value="PATIENT" id="rolePatient">
+                            <label class="role-select-card h-100 d-block text-center" for="rolePatient">
+                                <i class="bi bi-person-fill text-primary fs-3 d-block mb-1"></i>
+                                <span class="fw-bold d-block small">Patient Vault</span>
+                                <span class="text-muted small d-block" style="font-size: 0.75rem;">Manage personal records</span>
+                            </label>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Email Address</label>
-                            <input type="email" th:field="*{email}" class="form-control"
-                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
-                                   placeholder="you@email.com">
-                            <div class="invalid-feedback" th:errors="*{email}"></div>
+                        <div class="col-6">
+                            <input class="d-none role-select-input" type="radio"
+                                   th:field="*{role}" value="DOCTOR" id="roleDoctor">
+                            <label class="role-select-card h-100 d-block text-center" for="roleDoctor">
+                                <i class="bi bi-hospital text-teal fs-3 d-block mb-1" style="color: #0d9488;"></i>
+                                <span class="fw-bold d-block small">Medical Clinician</span>
+                                <span class="text-muted small d-block" style="font-size: 0.75rem;">Physician / Specialist</span>
+                            </label>
                         </div>
+                    </div>
+                    <div class="text-danger small mb-3" th:errors="*{role}"></div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Password</label>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-muted">Legal Full Name</label>
+                        <input type="text" th:field="*{fullName}" class="form-control"
+                               th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'"
+                               placeholder="e.g. Dr. Arthur Conan or Jane Doe">
+                        <div class="invalid-feedback" th:errors="*{fullName}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-muted">Email Address</label>
+                        <input type="email" th:field="*{email}" class="form-control"
+                               th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                               placeholder="name@domain.com">
+                        <div class="invalid-feedback" th:errors="*{email}"></div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold text-muted">Password</label>
                             <input type="password" th:field="*{password}" class="form-control"
                                    th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
                                    placeholder="Minimum 6 characters">
                             <div class="invalid-feedback" th:errors="*{password}"></div>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Confirm Password</label>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold text-muted">Confirm Password</label>
                             <input type="password" th:field="*{confirmPassword}" class="form-control"
-                                   placeholder="Re-enter your password">
+                                   placeholder="Re-enter password">
                         </div>
+                    </div>
 
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">I am a...</label>
-                            <div class="d-flex gap-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio"
-                                           th:field="*{role}" value="PATIENT" id="patient">
-                                    <label class="form-check-label" for="patient">
-                                        <i class="bi bi-person-fill text-info me-1"></i> Patient
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio"
-                                           th:field="*{role}" value="DOCTOR" id="doctor">
-                                    <label class="form-check-label" for="doctor">
-                                        <i class="bi bi-person-badge-fill text-success me-1"></i> Doctor
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="text-danger small mt-1" th:errors="*{role}"></div>
-                        </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                        <i class="bi bi-check2-circle me-1"></i> Complete Registration
+                    </button>
+                </form>
 
-                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
-                            <i class="bi bi-person-plus-fill me-2"></i>Create Account
-                        </button>
-                    </form>
+                <div class="border-top pt-3 mt-4 text-center">
+                    <small class="text-muted">
+                        Already have an account?
+                        <a href="/login" class="text-primary fw-semibold text-decoration-none">Sign In</a>
+                    </small>
                 </div>
             </div>
 
-            <p class="text-center mt-3 text-muted">
-                Already have an account?
-                <a href="/login" class="text-primary fw-bold text-decoration-none">Sign In</a>
-            </p>
+            <div class="text-center mt-3 text-muted small">
+                Protected by Spring Security • Data Persisted in Supabase PostgreSQL
+            </div>
         </div>
     </div>
 </div>
